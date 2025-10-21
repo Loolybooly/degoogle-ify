@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- discord embed -->
+        <meta property="og:title" content="DeGoogle your life!" />
+        <meta property="og:description" content="DeGoogle your life with this short survey" />
+        <meta property="og:image" content="https://i.imgur.com/V5zx1Jr.png" />
+        <meta property="og:url" content="https://degoogle-ify.vercel.app" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="https://i.imgur.com/sPxq6s5.png" type="image/png">
+
+        <!-- twitter (NOT X) embed u STUPID elon -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="DeGoogle your life!" />
+        <meta name="twitter:description" content="DeGoogle your life with this short survey" />
+        <meta name="twitter:image" content="https://i.imgur.com/V5zx1Jr.png" />
+        <meta name="twitter:url" content="https://degoogle-ify.vercel.app" />
+        <meta name="twitter:site" content="@LoolyTunes" />
+        <title>Google Usage Survey</title>
+        <link rel="stylesheet" href="style.css" />
+        <script>
+            const questions = [
+                "Do you use Google Chrome?",
+                "Do you use Google Search Engine?",
+                "Do you use Google Drive?",
+                "Do you use Gmail?",
+                "Do you use Google Authenticator?",
+                "Do you use Google Maps?",
+                "Do you use Google Photos?",
+                "Do you use Google Translate?",
+                "Do you use Google Meet?",
+                "Do you use Google Calendar?",
+                "Do you use Google Docs?",
+                "Do you use Google Play Store?",
+                "Do you use Google Assistant?",
+                "Do you use Google News?",
+                "Do you use Google Messages?",
+            ];
+
+            let current = 0;
+            let answers = Array(questions.length).fill(null);
+
+            function loadQuestion() {
+                document.getElementById("question").textContent =
+                    questions[current];
+                document.getElementById("step").textContent =
+                    `Question ${current + 1} of ${questions.length}`;
+                document
+                    .querySelector(".buttons .yes")
+                    .classList.toggle("selected", answers[current] === true);
+                document
+                    .querySelector(".buttons .no")
+                    .classList.toggle("selected", answers[current] === false);
+            }
+
+            function selectAnswer(ans) {
+                answers[current] = ans;
+                loadQuestion();
+            }
+
+            function nextStep() {
+                if (current === questions.length - 1) {
+                    const query = encodeURIComponent(JSON.stringify(answers));
+                    window.location = `results.html?answers=${query}`;
+                    return;
+                }
+                current++;
+                loadQuestion();
+            }
+
+            function back() {
+                if (current > 0) {
+                    current--;
+                    loadQuestion();
+                }
+            }
+
+            window.onload = loadQuestion;
+        </script>
+    </head>
+    <body>
+        <div class="survey-container">
+            <h1>Google Usage Survey</h1>
+            <p id="step" class="step"></p>
+            <div class="question-card">
+                <h2 id="question"></h2>
+                <div class="buttons">
+                    <button class="yes"onclick="selectAnswer(true); nextStep();">Yes</button>
+                    <button class="no" onclick="selectAnswer(false); nextStep();">No</button>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button id="back" onclick="back()">Back</button>
+                <button id="next" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Google Alternatives</title>
+        <link rel="stylesheet" href="style.css" />
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const params = new URLSearchParams(window.location.search);
+                const answersStr = params.get('answers');
+                
+                if (answersStr) {
+                    try {
+                        const answers = JSON.parse(decodeURIComponent(answersStr));
+                        const cards = document.querySelectorAll('.alt-card');
+                        
+                        cards.forEach((card, index) => {
+                            if (index < answers.length && answers[index] === true) {
+                                card.style.display = 'flex';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    } catch (e) {
+                        console.error('Error parsing answers:', e);
+                    }
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="results-container">
+            <h1>DeGoogle your life with these alternatives!</h1>
+            <div class="alt-grid">
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/zen-browser-dark.png" alt="Zen Browser"/>
+                    <h2>Zen Browser</h2>
+                    <p>A lightweight, privacy-focused web browser with open-source roots.</p>
+                    <p>
+                        <a href="https://zen-browser.app" target="_blank">Zen Browser</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/duckduckgo.png" alt="DuckDuckGo"/>
+                    <h2>DuckDuckGo</h2>
+                    <p>A search engine that doesn’t track you, delivering unbiased results.</p>
+                    <p>
+                        <a href="https://duckduckgo.com" target="_blank">DuckDuckGo Search</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/proton-drive.png" alt="Proton Drive"/>
+                    <h2>Proton Drive</h2>
+                    <p>Encrypted cloud storage with zero-knowledge privacy built-in.</p>
+                    <p>
+                        <a href="https://drive.proton.me" target="_blank">Proton Drive</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/proton-mail.png"alt="Proton Mail"/>
+                    <h2>Proton Mail</h2>
+                    <p>End-to-end encrypted email service that respects your privacy.</p>
+                    <p>
+                        <a href="https://mail.proton.me" target="_blank">Proton Mail</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://pmecdn.protonweb.com/image-transformation/?s=c&image=image%2Fupload%2Fstatic%2Flogos%2Ficons%2Fauthenticator.svg" alt="Proton Authenticator"/>
+                    <h2>Proton Authenticator</h2>
+                    <p>Open-source authenticator that doesn't track you.</p>
+                    <p>
+                        <a href="https://proton.me/authenticator" target="_blank">Proton Authenticator</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/openstreetmap.png" alt="OpenStreetMap"/>
+                    <h2>OpenStreetMap</h2>
+                    <p>Community-driven maps with offline navigation support.</p>
+                    <p>
+                        <a href="https://openstreetmap.org" target="_blank">Open Street Maps</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/ente-photos.png" alt="Ente Photos"/>
+                    <h2>Ente Photos</h2>
+                    <p>Private photo storage with automatic encryption.</p>
+                    <p>
+                        <a href="https://ente.io" target="_blank">Ente</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/deepl.png" alt="DeepL"/>
+                    <h2>DeepL Translate</h2>
+                    <p>A secure and accurate translation engine that isn't made by Google.</p>
+                    <p>
+                        <a href="https://deepl.com" target="_blank">DeepL</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://pmecdn.protonweb.com/image-transformation/?s=c&image=image%2Fupload%2Fstatic%2Flogos%2Ficons%2Fmeet.svg" alt="Proton Meet"/>
+                    <h2>Proton Meet (coming soon)</h2>
+                    <p>A simple and private video meeting platform.</p>
+                    <p>
+                        <a href="https://meet.proton.me" target="_blank">Proton meet</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/proton-calendar.png" alt="Proton Calendar"/>
+                    <h2>Proton Calendar</h2>
+                    <p>Privacy-friendly calendar app with encrypted sync.</p>
+                    <p>
+                        <a href="https://calendar.proton.me" target="_blank">Proton Calender</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/proton-docs.png" alt="Proton Docs"/>
+                    <h2>Proton Docs</h2>
+                    <p>Collaborative document editing with no data collection.</p>
+                    <p>
+                        <a href="https://docs.proton.me" target="_blank">Proton Docs</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://github.com/ImranR98/Obtainium/raw/main/assets/graphics/icon_small.png" alt="Obtainium Icon"/>
+                    <h2>Obtainium / Accrescent</h2>
+                    <p>A trusted app store built for open platforms.</p>
+                    <p>
+                        <a href="https://obtainium.imranr.dev" target="_blank">Obtainium</a> /
+                        <a href="https://accrescent.app" target="_blank">Accrescent</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/proton-lumo.png" alt="Lumo Icon"/>
+                    <h2></h2>
+                    <p>Assistants that listen only when you want them to.</p>
+                    <p>
+                        <a href="https://lumo.proton.me" target="_blank">Lumo</a> /
+                        <a href="https://claude.ai" target="_blank">Claude</a> /
+                        <a href="https://grok.com" target="_blank">Grok</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/reddit.png" alt="Reddit Icon"/>
+                    <h2>Google News alternatives</h2>
+                    <p>Curated news without algorithmic manipulation.</p>
+                    <p>
+                        <a href="https://reddit.com" target="_blank">Reddit</a>
+                    </p>
+                </div>
+
+                <div class="alt-card">
+                    <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/whatsapp.png" alt="Whatsapp Icon"/>
+                    <h2>Google Messages alternatives</h2>
+                    <p>Secure and simple messaging with full privacy.</p>
+                    <p>
+                        <a href="https://signal.org" target="_blank">Signal</a> /
+                        <a href="https://whatsapp.com" target="_blank">WhatsApp</a> /
+                        <a href="https://telegram.org" target="_blank">Telegram</a>
+                    </p>
+                </div>
+            </div>
+
+            <button onclick="window.location='index.html'">
+                Click to go back to the questionnaire
+            </button>
+        </div>
+    </body>
+</html>
