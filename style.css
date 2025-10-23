@@ -217,6 +217,33 @@ h1 {
     }
 }
 
+@keyframes bounce-n-blur {
+    0% {
+        transform: translateY(0px) scale(1);
+        filter: blur(0px);
+    }
+    25% {
+        transform: translateY(-3px) scale(1.01);
+        filter: blur(0.5px);
+    }
+    50% {
+        transform: translateY(0px) scale(1);
+        filter: blur(1px);
+    }
+    75% {
+        transform: translateY(2px) scale(0.99);
+        filter: blur(0.5px);
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+        filter: blur(0px);
+    }
+}
+
+.survey-container.bounce-effect {
+    animation: bounce-n-blur 0.3s ease-in-out;
+}
+
 @media (max-width: 480px) {
     .buttons {
         flex-direction: column;

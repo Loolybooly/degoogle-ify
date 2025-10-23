@@ -66,15 +66,32 @@
                     window.location = `results.html?answers=${query}`;
                     return;
                 }
-                current++;
-                loadQuestion();
+                document.querySelector('.survey-container').classList.add('loading');
+                setTimeout(() => {
+                    current++;
+                    loadQuestion();
+                    document.querySelector('.survey-container').classList.remove('loading');
+                }, 50);
             }
 
             function back() {
                 if (current > 0) {
-                    current--;
-                    loadQuestion();
+                    document.querySelector('.survey-container').classList.add('loading');
+                    setTimeout(() => {
+                        current--;
+                        loadQuestion();
+                        document.querySelector('.survey-container').classList.remove('loading');
+                    }, 50);
                 }
+            }
+
+            function bounceAndYes(ans) {
+                document.querySelector('.survey-container').classList.add('bounce-effect');
+                selectAnswer(ans);
+                nextStep();
+                setTimeout(() => {
+                    document.querySelector('.survey-container').classList.remove('bounce-effect');
+                }, 350);
             }
 
             window.onload = loadQuestion;
@@ -87,7 +104,7 @@
             <div class="question-card">
                 <h2 id="question"></h2>
                 <div class="buttons">
-                    <button class="yes"onclick="selectAnswer(true); nextStep();">Yes</button>
+                    <button class="yes"onclick="bounceAndYes(true);">Yes</button>
                     <button class="no" onclick="selectAnswer(false); nextStep();">No</button>
                 </div>
             </div>
