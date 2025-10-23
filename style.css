@@ -119,10 +119,28 @@ h1 {
 
 .alt-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
     width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .alt-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+    .alt-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .alt-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .alt-card {
@@ -135,7 +153,9 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     min-width: 100px;
+    min-height: 200px;
 }
 
 .alt-card:hover {
@@ -150,7 +170,7 @@ h1 {
 }
 
 .alt-card a {
-    color: #4da6ff;
+    color: #a660c4;
     text-decoration: none;
     font-weight: 500;
 }
@@ -198,16 +218,8 @@ h1 {
         padding: 1rem;
     }
 
-    .alt-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
-
     .alt-card {
-        flex: 0 0 calc(50% - 0.5rem);
-        min-width: 80px;
+        min-height: 180px;
         padding: 0.8rem;
     }
 
@@ -258,7 +270,12 @@ h1 {
     }
 
     .alt-card {
-        flex: 0 0 100%;
-        min-width: auto;
+        min-height: 160px;
+        padding: 0.8rem;
+    }
+
+    .alt-card img {
+        width: 40px;
+        height: 40px;
     }
 }
