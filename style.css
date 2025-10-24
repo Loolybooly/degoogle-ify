@@ -1,5 +1,7 @@
 body {
-    background: radial-gradient(circle at top left, #0e0e10, #090909);
+    background: linear-gradient(to bottom, #1a1a1a 0%, #2a2a2a 100%);
+    background-size: 100% 300%;
+    animation: gradientShift 6s ease-in-out infinite;
     color: #fff;
     font-family: "Inter", sans-serif;
     margin: 0;
@@ -8,6 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    opacity: 0.8;
 }
 
 .survey-container {
@@ -170,9 +173,109 @@ h1 {
 }
 
 .alt-card a {
-    color: #a660c4;
+    color: #4a9eff;
     text-decoration: none;
     font-weight: 500;
+}
+
+.alt-preview-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.alt-preview-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.alt-preview-container {
+    display: flex;
+    gap: 1rem;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.alt-preview-card {
+    background: rgba(42, 42, 42, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    min-width: 280px;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: #fff;
+}
+
+.alt-preview-overlay.active .alt-preview-card {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.alt-preview-card:nth-child(1) { transition-delay: 0.1s; }
+.alt-preview-card:nth-child(2) { transition-delay: 0.2s; }
+.alt-preview-card:nth-child(3) { transition-delay: 0.3s; }
+
+.alt-preview-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.alt-preview-card img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+}
+
+.alt-preview-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.alt-preview-card p {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.alt-preview-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.alt-preview-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
 }
 
 .results-container button {
@@ -229,6 +332,27 @@ h1 {
     }
 }
 
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 0%;
+    }
+    20% {
+        background-position: 0% 20%;
+    }
+    40% {
+        background-position: 0% 10%;
+    }
+    60% {
+        background-position: 0% 5%;
+    }
+    80% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
 @keyframes bounce-n-blur {
     0% {
         transform: translateY(0px) scale(1);
@@ -277,5 +401,26 @@ h1 {
     .alt-card img {
         width: 40px;
         height: 40px;
+    }
+
+    .alt-preview-container {
+        flex-direction: column;
+        max-width: 95vw;
+        padding: 0.5rem;
+    }
+
+    .alt-preview-card {
+        min-width: auto;
+        max-width: none;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .alt-preview-close {
+        top: 1rem;
+        right: 1rem;
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
     }
 }

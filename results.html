@@ -9,12 +9,12 @@
             window.addEventListener('DOMContentLoaded', () => {
                 const params = new URLSearchParams(window.location.search);
                 const answersStr = params.get('answers');
-                
+
                 if (answersStr) {
                     try {
                         const answers = JSON.parse(decodeURIComponent(answersStr));
                         const cards = document.querySelectorAll('.alt-card');
-                        
+
                         cards.forEach((card, index) => {
                             if (index < answers.length && answers[index] === true) {
                                 card.style.display = 'flex';
@@ -26,16 +26,141 @@
                         console.error('Error parsing answers:', e);
                     }
                 }
+
+                const altCards = document.querySelectorAll('.alt-card');
+                const previewOverlay = document.getElementById('altPreview');
+                const previewContainer = document.getElementById('altPreviewContainer');
+                const closeButton = document.getElementById('closePreview');
+
+                altCards.forEach(card => {
+                    const links = card.querySelectorAll('a');
+                    const title = card.querySelector('h2').textContent;
+                    const description = card.querySelector('p').textContent;
+                    const image = card.querySelector('img').src;
+
+                    if (links.length === 1) {
+                        card.style.cursor = 'pointer';
+                        card.addEventListener('click', (e) => {
+                            if (e.target.tagName === 'A') return;
+                            const link = links[0];
+                            window.open(link.href, link.target || '_blank');
+                        });
+                    }
+                    else if (links.length > 1) {
+                        card.style.cursor = 'pointer';
+                          card.addEventListener('click', (e) => {
+                            if (e.target.tagName === 'A') return;
+                            showMultiAlternativePreview(links, title, description, image);
+                        });
+                    }
+                });
+
+                function closePreview() {
+                    previewOverlay.classList.remove('active');
+                }
+
+                closeButton.addEventListener('click', closePreview);
+
+                previewOverlay.addEventListener('click', (e) => {
+                    if (e.target === previewOverlay) {
+                        closePreview();
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && previewOverlay.classList.contains('active')) {
+                        closePreview();
+                    }
+                });
+
+                const alternativeData = {
+                    'zen browser': {
+                        description: 'Modern browser with focus on privacy, customization, and vertical tabs. Built on Firefox with enhanced UI.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/zen-browser-dark.png'
+                    },
+                    'firefox': {
+                        description: 'The original privacy-focused browser. Open-source, customizable, and committed to user privacy over profits.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/firefox.png'
+                    },
+                    'librewolf': {
+                        description: 'Ultra-privacy focused Firefox fork. Removes telemetry, ads, and tracking while maintaining compatibility.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/librewolf.png'
+                    },
+                    'obtainium': {
+                        description: 'Android app store focusing on open-source apps. Direct APK downloads with automatic updates.',
+                        icon: 'https://github.com/ImranR98/Obtainium/raw/main/assets/graphics/icon_small.png'
+                    },
+                    'accrescent': {
+                        description: 'Secure Android app store with focus on privacy and security. Only hosts verified open-source apps.',
+                        icon: 'https://github.com/accrescent/accrescent/raw/master/.icon-round.png'
+                    },
+                    'lumo': {
+                        description: 'AI assistant by Proton focused on privacy. Your conversations stay private and are not used for training.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/proton-lumo.png'
+                    },
+                    'claude': {
+                        description: 'AI assistant by Anthropic. Helpful, honest, and focused on safety. Respects user privacy and data.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/claude-ai-light.png'
+                    },
+                    'grok': {
+                        description: 'AI built by xAI. Helpful assistant with real-time access to X (Twitter) data and current events.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/grok.png'
+                    },
+                    'signal': {
+                        description: 'Privacy-first messaging app. End-to-end encrypted, open-source, and funded by donations, not ads.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/signal.png'
+                    },
+                    'telegram': {
+                        description: 'Feature-rich messaging app with channels, bots, and groups. Fast, secure, and cross-platform.',
+                        icon: 'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/telegram.png'
+                    }
+                };
+
+                function showMultiAlternativePreview(links, title, description, image) {
+                    previewContainer.innerHTML = '';
+
+                    links.forEach((link, index) => {
+                        const linkText = link.textContent.trim().toLowerCase();
+                        const linkUrl = link.href;
+                        const altData = alternativeData[linkText] || {
+                            description: description,
+                            icon: image
+                        };
+
+                        const previewCard = document.createElement('div');
+                        previewCard.className = 'alt-preview-card';
+                        previewCard.innerHTML = `
+                            <img src="${altData.icon}" alt="${linkText}" />
+                            <h3>${link.textContent.trim()}</h3>
+                            <p>${altData.description}</p>
+                        `;
+
+                        previewCard.addEventListener('click', () => {
+                            window.open(linkUrl, '_blank');
+                            closePreview();
+                        });
+
+                        previewContainer.appendChild(previewCard);
+                    });
+
+                    previewOverlay.classList.add('active');
+                }
             });
         </script>
     </head>
     <body>
+        <div class="alt-preview-overlay" id="altPreview">
+            <button class="alt-preview-close" id="closePreview">&times;</button>
+            <div class="alt-preview-container" id="altPreviewContainer">
+            </div>
+        </div>
+
         <div class="results-container">
             <h1>DeGoogle your life with these alternatives!</h1>
             <div class="alt-grid">
                 <div class="alt-card">
                     <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/firefox.png" alt="Zen Browser"/>
-                    <h2>Zen Browser/Firefox/Librewolf</h2>
+                    <h2>Zen/Firefox/Librewolf</h2>
                     <p>Privacy-focused web browsers that prioritize your experience over data collection and tracking.</p>
                     <p>
                         <a href="https://zen-browser.app" target="_blank">Zen Browser</a>/<a href="https://firefox.com" target="_blank">Firefox</a>/<a href="https://librewolf.net" target="_blank">Librewolf</a>
